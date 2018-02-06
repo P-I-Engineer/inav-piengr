@@ -162,7 +162,7 @@ void ltm_sframe(sbuf_t *dst)
 {
     uint8_t lt_flightmode;
 
-    if (FLIGHT_MODE(PASSTHRU_MODE))
+    if (FLIGHT_MODE(MANUAL_MODE))
         lt_flightmode = 0;
     else if (FLIGHT_MODE(NAV_WP_MODE))
         lt_flightmode = 10;
@@ -185,7 +185,7 @@ void ltm_sframe(sbuf_t *dst)
     if (failsafeIsActive())
         lt_statemode |= 2;
     sbufWriteU8(dst, 'S');
-    sbufWriteU16(dst, vbat * 100);    //vbat converted to mv
+    sbufWriteU16(dst, vbat * 10);    //vbat converted to mv
     sbufWriteU16(dst, (uint16_t)constrain(mAhDrawn, 0, 0xFFFF));    // current mAh (65535 mAh max)
     sbufWriteU8(dst, (uint8_t)((rssi * 254) / 1023));        // scaled RSSI (uchar)
 #if defined(USE_PITOT)

@@ -588,7 +588,7 @@ void handleSmartPortTelemetry(void)
                         vfasVoltage = vbat / batteryCellCount;
                     else
                         vfasVoltage = vbat;
-                    smartPortSendPackage(id, vfasVoltage * 10); // given in 0.1V, convert to volts
+                    smartPortSendPackage(id, vfasVoltage);
                 }
                 break;
             case FSSP_DATAID_CURRENT    :
@@ -601,12 +601,10 @@ void handleSmartPortTelemetry(void)
                     smartPortSendPackage(id, getEstimatedActualPosition(Z)); // unknown given unit, requested 100 = 1 meter
                 break;
             case FSSP_DATAID_FUEL       :
-                if (feature(FEATURE_CURRENT_METER)) {
-                    if (telemetryConfig()->smartportFuelPercent && batteryConfig()->batteryCapacity > 0)
-                        smartPortSendPackage(id, calculateBatteryCapacityRemainingPercentage()); // Show remaining battery % if smartport_fuel_percent=ON and battery_capacity set
-                    else
-                        smartPortSendPackage(id, mAhDrawn); // given in mAh, unknown requested unit
-                }
+                if (telemetryConfig()->smartportFuelUnit == SMARTPORT_FUEL_UNIT_PERCENT)
+                    smartPortSendPackage(id, calculateBatteryPercentage()); // Show remaining battery % if smartport_fuel_percent=ON
+                else if (feature(FEATURE_CURRENT_METER))
+                    smartPortSendPackage(id, (telemetryConfig()->smartportFuelUnit == SMARTPORT_FUEL_UNIT_MAH ? mAhDrawn : mWhDrawn));
                 break;
             //case FSSP_DATAID_ADC1       :
             //case FSSP_DATAID_ADC2       :
@@ -666,7 +664,7 @@ void handleSmartPortTelemetry(void)
                         tmpi += 10;
                     if (FLIGHT_MODE(HORIZON_MODE))
                         tmpi += 20;
-                    if (FLIGHT_MODE(PASSTHRU_MODE))
+                    if (FLIGHT_MODE(MANUAL_MODE))
                         tmpi += 40;
 
                     // hundreds column
@@ -739,7 +737,7 @@ void handleSmartPortTelemetry(void)
             //case FSSP_DATAID_A3         :
             case FSSP_DATAID_A4         :
                 if (feature(FEATURE_VBAT))
-                    smartPortSendPackage(id, vbat * 10 / batteryCellCount ); // given in 0.1V, convert to volts
+                    smartPortSendPackage(id, vbat / batteryCellCount );
                 break;
             default:
                 break;

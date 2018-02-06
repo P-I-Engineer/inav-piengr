@@ -571,7 +571,6 @@ COMMON_SRC = \
             drivers/bus_busdev_spi.c \
             drivers/bus_i2c_soft.c \
             drivers/bus_spi.c \
-            drivers/bus_spi_soft.c \
             drivers/display.c \
             drivers/exti.c \
             drivers/gps_i2cnav.c \
@@ -596,6 +595,7 @@ COMMON_SRC = \
             drivers/stack_check.c \
             drivers/system.c \
             drivers/timer.c \
+            drivers/lights_io.c \
             fc/cli.c \
             fc/config.c \
             fc/controlrate_profile.c \
@@ -620,6 +620,7 @@ COMMON_SRC = \
             flight/pid_autotune.c \
             flight/servos.c \
             io/beeper.c \
+            io/lights.c \
             io/pwmdriver_i2c.c \
             io/serial.c \
             io/serial_4way.c \

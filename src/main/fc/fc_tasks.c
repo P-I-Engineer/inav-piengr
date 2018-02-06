@@ -49,6 +49,7 @@
 #include "navigation/navigation.h"
 
 #include "io/beeper.h"
+#include "io/lights.h"
 #include "io/dashboard.h"
 #include "io/gps.h"
 #include "io/ledstrip.h"
@@ -81,11 +82,6 @@
 
 #include "uav_interconnect/uav_interconnect.h"
 
-/* VBAT monitoring interval (in microseconds) - 1s*/
-#define VBATINTERVAL (6 * 3500)
-/* IBat monitoring interval (in microseconds) - 6 default looptimes */
-#define IBATINTERVAL (6 * 3500)
-
 void taskHandleSerial(timeUs_t currentTimeUs)
 {
     UNUSED(currentTimeUs);
@@ -101,26 +97,18 @@ void taskHandleSerial(timeUs_t currentTimeUs)
 
 void taskUpdateBattery(timeUs_t currentTimeUs)
 {
+    static timeUs_t batMonitoringLastServiced = 0;
+    timeUs_t BatMonitoringTimeSinceLastServiced = cmpTimeUs(currentTimeUs, batMonitoringLastServiced);
+
+    if (feature(FEATURE_CURRENT_METER))
+        currentMeterUpdate(BatMonitoringTimeSinceLastServiced);
 #ifdef USE_ADC
-    static timeUs_t vbatLastServiced = 0;
-    if (feature(FEATURE_VBAT)) {
-        if (cmpTimeUs(currentTimeUs, vbatLastServiced) >= VBATINTERVAL) {
-            timeUs_t vbatTimeDelta = currentTimeUs - vbatLastServiced;
-            vbatLastServiced = currentTimeUs;
-            batteryUpdate(vbatTimeDelta);
-        }
-    }
+    if (feature(FEATURE_VBAT))
+        batteryUpdate(BatMonitoringTimeSinceLastServiced);
+    if (feature(FEATURE_VBAT) && feature(FEATURE_CURRENT_METER))
+        powerMeterUpdate(BatMonitoringTimeSinceLastServiced);
 #endif
-
-    static timeUs_t ibatLastServiced = 0;
-    if (feature(FEATURE_CURRENT_METER)) {
-        timeUs_t ibatTimeSinceLastServiced = cmpTimeUs(currentTimeUs, ibatLastServiced);
-
-        if (ibatTimeSinceLastServiced >= IBATINTERVAL) {
-            ibatLastServiced = currentTimeUs;
-            currentMeterUpdate(ibatTimeSinceLastServiced);
-        }
-    }
+    batMonitoringLastServiced = currentTimeUs;
 }
 
 #ifdef USE_GPS
@@ -315,6 +303,9 @@ void fcTasksInit(void)
 #ifdef BEEPER
     setTaskEnabled(TASK_BEEPER, true);
 #endif
+#ifdef USE_LIGHTS
+    setTaskEnabled(TASK_LIGHTS, true);
+#endif
     setTaskEnabled(TASK_BATTERY, feature(FEATURE_VBAT) || feature(FEATURE_CURRENT_METER));
     setTaskEnabled(TASK_RX, true);
 #ifdef USE_GPS
@@ -442,6 +433,15 @@ cfTask_t cfTasks[TASK_COUNT] = {
         .taskFunc = beeperUpdate,
         .desiredPeriod = TASK_PERIOD_HZ(100),     // 100 Hz
         .staticPriority = TASK_PRIORITY_MEDIUM,
+    },
+#endif
+
+#ifdef USE_LIGHTS
+    [TASK_LIGHTS] = {
+        .taskName = "LIGHTS",
+        .taskFunc = lightsUpdate,
+        .desiredPeriod = TASK_PERIOD_HZ(100),     // 100 Hz
+        .staticPriority = TASK_PRIORITY_LOW,
     },
 #endif
 
