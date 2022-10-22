@@ -38,7 +38,7 @@ timerHardware_t timerHardware[] = {
 #ifdef MATEKF405_SERVOS6
     DEF_TIM(TIM1, CH1, PA8,  TIM_USE_MC_MOTOR | TIM_USE_MC_SERVO | TIM_USE_FW_SERVO, 0, 0), // S6  UP(2,5)
 #else
-    DEF_TIM(TIM1, CH1, PA8,  TIM_USE_MC_MOTOR |                    TIM_USE_FW_SERVO, 0, 0), // S6  UP(2,5)
+    DEF_TIM(TIM1, CH1, PA8,  TIM_USE_MC_MOTOR |                    TIM_USE_FW_MOTOR, 0, 0), // S6  UP(2,5)
 #endif
     DEF_TIM(TIM4, CH3, PB8,  TIM_USE_MC_MOTOR | TIM_USE_MC_SERVO | TIM_USE_FW_MOTOR, 0, 0), // S7  D(1,7)!S5 UP(2,6)
 
