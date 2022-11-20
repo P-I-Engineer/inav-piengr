@@ -162,7 +162,7 @@
 #define TARGET_IO_PORTC (0xffff & ~(BIT(15)|BIT(14)))
 #define TARGET_IO_PORTD BIT(2)
 
-#define MAX_PWM_OUTPUT_PORTS 4
+#define MAX_PWM_OUTPUT_PORTS 5
 
 #define USE_DSHOT
 #define USE_ESC_SENSOR
