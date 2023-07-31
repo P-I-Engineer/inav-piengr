@@ -20,6 +20,11 @@
 #define TARGET_BOARD_IDENTIFIER "SP4W"
 #define USBD_PRODUCT_STRING  "SpeedyBee F405 Wing"
 
+#ifdef SPEEDYBEEF405WING_VTOL
+#define ENABLE_MIXER_PROFILE_MCFW_HOTSWAP //Enable hot swap
+#define SPEEDYBEEF405WING //Define the original target name keep its original configuration such as USBD_PRODUCT_STRING
+#endif
+
 // LEDs
 #define LED0                    PA14  //Blue
 #define LED1                    PA13  //Green

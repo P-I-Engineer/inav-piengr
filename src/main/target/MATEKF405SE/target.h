@@ -20,6 +20,11 @@
 #define TARGET_BOARD_IDENTIFIER "MF4S"
 #define USBD_PRODUCT_STRING  "Matek_F405SE"
 
+#ifdef MATEKF405SE_VTOL
+#define ENABLE_MIXER_PROFILE_MCFW_HOTSWAP //Enable hot swap
+#define MATEKF405SE //Define the original target name keep its original configuration such as USBD_PRODUCT_STRING
+#endif
+
 // ******** Board LEDs  **********************
 #define LED0                    PA14  //Blue
 #define LED1                    PA13  //Green
