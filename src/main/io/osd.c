@@ -2577,6 +2577,13 @@ static bool osdDrawSingleElement(uint8_t item)
         osdDisplaySwitchIndicator(osdConfig()->osd_switch_indicator3_name, rxGetChannelValue(osdConfig()->osd_switch_indicator3_channel - 1), buff);
         break;
 
+    case OSD_FORMATION_FLIGHT:
+    {
+        osdDrawSidebars(osdDisplayPort, osdGetDisplayPortCanvas());
+            return true;
+               
+    }    
+
     case OSD_PAN_SERVO_CENTRED:
         {
             int16_t panOffset = osdGetPanServoOffset();
@@ -3840,6 +3847,8 @@ void pgResetFn_osdLayoutsConfig(osdLayoutsConfig_t *osdLayoutsConfig)
     osdLayoutsConfig->item_pos[0][OSD_SWITCH_INDICATOR_2] = OSD_POS(2, 9);
     osdLayoutsConfig->item_pos[0][OSD_SWITCH_INDICATOR_3] = OSD_POS(2, 10);
 
+    osdLayoutsConfig->item_pos[0][OSD_FORMATION_FLIGHT] = OSD_POS(10, 11) | OSD_VISIBLE_FLAG;
+   
 #if defined(USE_ESC_SENSOR)
     osdLayoutsConfig->item_pos[0][OSD_ESC_RPM] = OSD_POS(1, 2);
     osdLayoutsConfig->item_pos[0][OSD_ESC_TEMPERATURE] = OSD_POS(1, 3);
