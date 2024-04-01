@@ -4732,6 +4732,16 @@ Number of leading digits removed from plus code. Removing 2, 4 and 6 digits requ
 
 ---
 
+### osd_radar_peers_display_time
+
+Time in seconds to display next peer 
+
+| Default | Min | Max |
+| --- | --- | --- |
+| 3 | 1 | 10 |
+
+---
+
 ### osd_right_sidebar_scroll
 
 _// TODO_
