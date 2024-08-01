@@ -170,6 +170,7 @@ static const OSD_Entry menuOsdElemsEntries[] =
 {
     OSD_LABEL_ENTRY("--- OSD ITEMS ---"),
 
+    OSD_ELEMENT_ENTRY("FORMATION FLIGHT", OSD_FORMATION_FLIGHT),
     OSD_ELEMENT_ENTRY("RSSI", OSD_RSSI_VALUE),
 #ifdef USE_SERIALRX_CRSF
     OSD_SUBMENU_ENTRY("CRSF RX", &cmsx_menuCrsf),
