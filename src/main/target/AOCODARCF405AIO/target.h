@@ -30,9 +30,9 @@
 #define USB_IO
 #define USE_VCP
 
-#define USE_UART1
-#define UART1_RX_PIN         PA10
-#define UART1_TX_PIN         PA9
+//#define USE_UART1
+//#define UART1_RX_PIN         PA10
+//#define UART1_TX_PIN         PA9
 
 #define USE_UART2
 #define UART2_RX_PIN         PA3
@@ -50,7 +50,7 @@
 #define UART5_RX_PIN         PC12
 #define UART5_TX_PIN         PD2
 
-#define SERIAL_PORT_COUNT    6               
+#define SERIAL_PORT_COUNT    5               
 
 /*** Gyro & Acc ***/
 #define USE_TARGET_IMU_HARDWARE_DESCRIPTORS
