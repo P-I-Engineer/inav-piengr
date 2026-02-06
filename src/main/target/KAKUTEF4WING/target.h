@@ -107,12 +107,12 @@
 #define UART5_TX_PIN            PC12
 
 //UART6
-#define USE_UART6
-#define UART6_RX_PIN            PC7
-#define UART6_TX_PIN            PC6
+//#define USE_UART6
+//#define UART6_RX_PIN            PC7
+//#define UART6_TX_PIN            PC6
 
 // #   define USE_SOFTSERIAL1
-# define SERIAL_PORT_COUNT 6
+# define SERIAL_PORT_COUNT 5
 
 // *************** SPI ********************
 #define USE_SPI
@@ -149,11 +149,11 @@
 #define VBAT_SCALE_DEFAULT          1100    // VBAT_ADC 1V=11V
 
 // *************** LED_STRIP **********************
-#define USE_LED_STRIP
-#define WS2811_PIN                      PA1
-#define WS2811_DMA_HANDLER_IDENTIFER    DMA1_ST6_HANDLER
-#define WS2811_DMA_STREAM               DMA1_Stream6
-#define WS2811_DMA_CHANNEL              DMA_Channel_3
+//#define USE_LED_STRIP
+//#define WS2811_PIN                      PA1
+//#define WS2811_DMA_HANDLER_IDENTIFER    DMA1_ST6_HANDLER
+//#define WS2811_DMA_STREAM               DMA1_Stream6
+//#define WS2811_DMA_CHANNEL              DMA_Channel_3
 
 // *************** PINIO ***************************
 #define USE_PINIO
@@ -178,6 +178,6 @@
 #define USE_DSHOT
 #define USE_ESC_SENSOR
 
-#define MAX_PWM_OUTPUT_PORTS       6
+#define MAX_PWM_OUTPUT_PORTS       8
 
 
