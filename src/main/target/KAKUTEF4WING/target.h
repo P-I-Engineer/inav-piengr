@@ -148,7 +148,7 @@
 #define CURRENT_METER_SCALE         250     // Current_Meter 1V=40A
 #define VBAT_SCALE_DEFAULT          1100    // VBAT_ADC 1V=11V
 
- *************** LED_STRIP **********************
+// *************** LED_STRIP **********************
 #define USE_LED_STRIP
 #define WS2811_PIN                      PA1
 #define WS2811_DMA_HANDLER_IDENTIFER    DMA1_ST6_HANDLER
